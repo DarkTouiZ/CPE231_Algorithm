@@ -65,7 +65,7 @@ public:
         int Mx = -2e9;
         
         Node* tmp = head;
-        while(tmp->next){
+        while(tmp){
             if(Mx < tmp->data){
                 Mx = tmp->data;
             }
@@ -98,10 +98,10 @@ int main()
         ll->pushBack(i);
     }
 
-    for(int a = 1; a < boxLimit[0]; a++){
-        for(int b = 1; b < boxLimit[1]; b++){
-            for(int c = 1; c < boxLimit[2]; c++){
-                for(int d = 1; d < boxLimit[3]; d++){
+    for(int a = 0; a <= boxLimit[0]; a++){
+        for(int b = 0; b <= boxLimit[1]; b++){
+            for(int c = 0; c <= boxLimit[2]; c++){
+                for(int d = 0; d <= boxLimit[3]; d++){
                     int sum = a*boxes[0] + b*boxes[1] + c*boxes[2] + d*boxes[3];
                     if(sum > n){
                         continue;
@@ -113,6 +113,10 @@ int main()
         }
     }
     
+    for(Node* tmp = ll->head; tmp != NULL; tmp = tmp->next){
+        cout << tmp->data << " ";
+    }
+    cout << endl;
     cout << ll->findMax(ll->head) << endl;
 
     return 0;
