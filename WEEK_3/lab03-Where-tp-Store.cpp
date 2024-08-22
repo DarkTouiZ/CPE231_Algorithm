@@ -1,32 +1,80 @@
 #include <iostream>
+#include <vector>
+#include <set>
+#include <cmath>
 #include <string>
 
 using namespace std;
-int solution = 0;
-int findAllEachPalin(string name, int i, int j);
+bool isPalindrome(const string &str);
+vector<bool> binary(int nBits, int n);
+string filterByBits(const string &str, const vector<bool> &bits);
 
-int main(){
+int main()
+{
+
     string name;
     cin >> name;
 
-    solution = findAllEachPalin(name, 0, name.length()-1);
-    cout << solution << endl;
+    int nBits = name.size();
+
+    set<string> palindromeSet;
+
+    // Check all possible combinations of bits that palindromes can be formed from the name
+    for (int i = 0; i < pow(2, nBits); i++)
+    {
+        vector<bool> bits = binary(nBits, i);
+
+        string filteredStr = filterByBits(name, bits);
+
+        if (isPalindrome(filteredStr) && filteredStr.size() > 1)
+        {
+            palindromeSet.insert(filteredStr); // Insert the palindrome into the set
+        }
+    }
+
+    cout << palindromeSet.size() << endl;
+
     return 0;
 }
 
-int findAllEachPalin(string name, int i, int j){
-    // base case
-    if(j - i == 1){
-        return 1;
+bool isPalindrome(const string &str)
+{
+    int left = 0;
+    int right = str.size() - 1;
+    while (left < right)
+    {
+        if (str[left] != str[right])
+        {
+            return false;
+        }
+        left++;
+        right--;
     }
-    if(i >= j){
-        return 0;
-    }
+    return true;
+}
 
-    // recursive case
-    if(name[i] == name[j]){
-        return 1 + findAllEachPalin(name, i+1, j) + findAllEachPalin(name, i, j-1);
-    }else{
-        return findAllEachPalin(name, i+1, j) + findAllEachPalin(name, i, j-1) - findAllEachPalin(name, i+1, j-1);
+vector<bool> binary(int nBits, int n)
+{
+    vector<bool> bits(nBits, 0);
+    int i = nBits - 1;
+    while (n && i >= 0)
+    {
+        bits[i] = n % 2;
+        n /= 2;
+        i--;
     }
+    return bits;
+}
+
+string filterByBits(const string &str, const vector<bool> &bits)
+{
+    string result = "";
+    for (int i = 0; i < str.size(); i++)
+    {
+        if (bits[i])
+        {
+            result += str[i];
+        }
+    }
+    return result;
 }
