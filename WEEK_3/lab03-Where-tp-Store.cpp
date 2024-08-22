@@ -5,7 +5,7 @@
 #include <string>
 
 using namespace std;
-bool isPalindrome(const string &str);
+bool isPalin(const string &str);
 vector<bool> binary(int nBits, int n);
 string filterByBits(const string &str, const vector<bool> &bits);
 
@@ -26,7 +26,7 @@ int main()
 
         string filteredStr = filterByBits(name, bits);
 
-        if (isPalindrome(filteredStr) && filteredStr.size() > 1)
+        if (isPalin(filteredStr) && filteredStr.size() > 1)
         {
             palindromeSet.insert(filteredStr); // Insert the palindrome into the set
         }
@@ -37,7 +37,7 @@ int main()
     return 0;
 }
 
-bool isPalindrome(const string &str)
+bool isPalin(const string &str)
 {
     int left = 0;
     int right = str.size() - 1;
