@@ -8,8 +8,6 @@ bool cmp(int a, int b){
     return a > b;
 }
 
-
-
 int main(){
     //input number of trees jarn wee want decorate in the show
     int num;
